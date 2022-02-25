@@ -16,3 +16,6 @@ Checks:
 - Integrating the analytical expression using the Limber approximation and using the cosmology from the code CLASS.
 - calculating directly from the CLASS
 - comparing both
+
+
+To use these files, you should install the latest version of the CAMB and the CLASS codes. 
