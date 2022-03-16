@@ -105,39 +105,12 @@ mu_z1 = 0.8;
 mu_z2 = 1.2;
 z1  = np.linspace(mu_z1-deltazf/2,mu_z1+deltazf/2,num=nz,endpoint=False) # should use better integrator formula
 z2  = np.linspace(mu_z2-deltazb/2,mu_z2+deltazb/2,num=nz,endpoint=False)
-
-
-#z1  = np.linspace(mu_z1-ns*sigma_z1,mu_z1+ns*sigma_z1,num=nz,endpoint=False) # should use better integrator formula
-#z2  = np.linspace(mu_z2-ns*sigma_z2,mu_z2+ns*sigma_z2,num=nz,endpoint=False)
 dz1 = z1[1]-z1[0]
 dz2 = z2[1]-z2[0]
 
 
 ellarr_class = np.linspace(2,ellmax,nell)
 resarr_class = np.zeros(np.size(ellarr_class))
-
-'''
-for il, ell in enumerate(ellarr_class):
-    res_c = 0.0
-    for iz in z1:
-        chi_iz = comoving_dist_intp(iz) # returns comoving radial distance chi in Mpc
-        kz     = (0.5+ell)/chi_iz
-        Pkz    = cosmo.pk_lin(kz, 0)
-        #Pkz    = cosmo.pk_lin(kz, iz)
-
-        Pkz = (growth_factor_intp(iz)**2)*Pkz
-
-        W_iz = 1/deltazf
-        for jz in z2:
-            chi_jz = comoving_dist_intp(jz) # returns comoving radial distance chi in Mpc
-            #W_jz   = norm_gaussian(jz,mu_z2,sigma_z2)
-            W_jz = 1/deltazb
-            res_c    = res_c + W_iz*(1.0+iz)*Pkz*W_jz*(chi_jz-chi_iz)/(chi_jz*chi_iz)
-    res_c = res_c*(1.0+ell)*ell/(0.5+ell)**2
-    res_c = res_c*1.5*(omch2+ombh2)*100.0**2/cspeed**2 # units 1/Mpc^2
-    resarr_class[il]=res_c*dz1*dz2
-    print(ell,res_c)
-'''
 
 resarr_class2 = np.zeros(np.size(ellarr_class))
 
@@ -158,6 +131,4 @@ for il, ell in enumerate(ellarr_class):
 
     print(ell,res_c)
 
-# Save results to output file for visualisation elsewhere
-#np.savez_compressed('cl_cross_limber_usingCLASSfunctions-gr.npz',l_limber=ellarr_class,cl_limber=resarr_class)
 np.savez_compressed('cl_dd_limber_usingCLASSfunctions.npz',l_limber=ellarr_class,cl_limber=resarr_class2)
